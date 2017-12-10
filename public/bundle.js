@@ -9599,7 +9599,8 @@ ReactDOM.render(React.createElement(
   'Boilerplate App!'
 ), document.getElementById('app'));
 
-__webpack_require__(190);
+//require('./redux-example.jsx');
+__webpack_require__(207);
 
 /***/ }),
 /* 82 */
@@ -22514,17 +22515,7 @@ function compose() {
 }
 
 /***/ }),
-/* 190 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var redux = __webpack_require__(191);
-
-console.log('Starting Redux Example...');
-
-/***/ }),
+/* 190 */,
 /* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -23133,6 +23124,33 @@ function applyMiddleware() {
     };
   };
 }
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var redux = __webpack_require__(191);
+
+console.log('Starting Redux Example...');
+
+var stateDefault = {
+  searchText: '',
+  showCompleted: false,
+  todos: []
+};
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
+  var action = arguments[1];
+
+  return state;
+};
+var store = redux.createStore(reducer);
+
+var currentState = store.getState();
+console.log('currentState: ', currentState);
 
 /***/ })
 /******/ ]);
