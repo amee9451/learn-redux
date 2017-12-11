@@ -18,13 +18,24 @@ var reducer = (state = stateDefault, action) => {
       return state;
   };
 };
-var store = redux.createStore(reducer);
+var store = redux.createStore(reducer, redux.compose(
+  window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
+));
 
-var currentState = store.getState();
-console.log('Starting State: ', currentState);
+store.subscribe(() => {
+  var state = store.getState();
+  document.getElementById('app').innerHTML = '<h1>' + state.searchText + '<h1>';
+});
 
 store.dispatch({
   type: 'CHANGE_SEARCH_TEXT',
   value: 'dog'
 });
-console.log('Updated Search State: ', store.getState());
+store.dispatch({
+  type: 'CHANGE_SEARCH_TEXT',
+  value: 'cat'
+});
+store.dispatch({
+  type: 'CHANGE_SEARCH_TEXT',
+  value: 'bird'
+});
