@@ -10038,8 +10038,8 @@ ReactDOM.render(React.createElement(
   'Boilerplate App!'
 ), document.getElementById('app'));
 
-//require('./redux-example.jsx');
-__webpack_require__(207);
+__webpack_require__(190);
+//require('./redux-todo-example.jsx');
 
 /***/ }),
 /* 88 */
@@ -22515,7 +22515,122 @@ module.exports = ReactDOMInvalidARIAHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 190 */,
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var redux = __webpack_require__(191);
+
+console.log('Starting Redux Example...');
+
+var stateDefault = {
+  name: 'Anon',
+  hobbies: [],
+  movies: []
+};
+
+var nextHobbyId = 1;
+var nextMovieId = 1;
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
+  var action = arguments[1];
+
+  //state = state || {name: 'Anon'};
+
+  //console.log('New Action: ', action);
+  switch (action.type) {
+    case 'CHANGE_NAME':
+      return _extends({}, state, {
+        name: action.name
+      });
+    case 'ADD_HOBBY':
+      return _extends({}, state, {
+        hobbies: [].concat(_toConsumableArray(state.hobbies), [{
+          id: nextHobbyId++,
+          hobby: action.value
+        }])
+      });
+    case 'REMOVE_HOBBY':
+      return _extends({}, state, {
+        hobbies: state.hobbies.filter(function (hobby) {
+          return hobby.id !== action.id;
+        })
+      });
+    case 'ADD_MOVIE':
+      return _extends({}, state, {
+        movies: [].concat(_toConsumableArray(state.movies), [{
+          id: nextMovieId++,
+          title: action.title,
+          genre: action.genre
+        }])
+      });
+    default:
+      return state;
+  };
+};
+var store = redux.createStore(reducer, redux.compose(window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : function (f) {
+  return f;
+}));
+
+//subscribe to changes
+var unsubscribe = store.subscribe(function () {
+  var state = store.getState();
+
+  console.log('Name is', state.name);
+  document.getElementById('app').innerHTML = '<h1>' + state.name + '<h1>';
+
+  console.log('New state:', state);
+});
+
+//unsubscribe();
+
+var currentState = store.getState();
+
+store.dispatch({
+  type: 'CHANGE_NAME',
+  name: 'Jan'
+});
+
+store.dispatch({
+  type: 'ADD_HOBBY',
+  value: 'Running'
+});
+
+store.dispatch({
+  type: 'ADD_HOBBY',
+  value: 'Walking'
+});
+
+store.dispatch({
+  type: 'REMOVE_HOBBY',
+  id: 2,
+  value: 'Running'
+});
+
+store.dispatch({
+  type: 'CHANGE_NAME',
+  name: 'Ifke'
+});
+
+store.dispatch({
+  type: 'ADD_MOVIE',
+  title: 'Star Wars',
+  genre: 'sci-fi'
+});
+
+store.dispatch({
+  type: 'ADD_MOVIE',
+  title: 'The Notebook',
+  genre: 'romance'
+});
+
+/***/ }),
 /* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -23124,59 +23239,6 @@ function applyMiddleware() {
     };
   };
 }
-
-/***/ }),
-/* 207 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var redux = __webpack_require__(191);
-
-console.log('Starting Redux Todo Example...');
-
-var stateDefault = {
-  searchText: '',
-  showCompleted: false,
-  todos: []
-};
-var reducer = function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'CHANGE_SEARCH_TEXT':
-      return _extends({}, state, {
-        searchText: action.value
-      });
-    default:
-      return state;
-  };
-};
-var store = redux.createStore(reducer, redux.compose(window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : function (f) {
-  return f;
-}));
-
-store.subscribe(function () {
-  var state = store.getState();
-  document.getElementById('app').innerHTML = '<h1>' + state.searchText + '<h1>';
-});
-
-store.dispatch({
-  type: 'CHANGE_SEARCH_TEXT',
-  value: 'dog'
-});
-store.dispatch({
-  type: 'CHANGE_SEARCH_TEXT',
-  value: 'cat'
-});
-store.dispatch({
-  type: 'CHANGE_SEARCH_TEXT',
-  value: 'bird'
-});
 
 /***/ })
 /******/ ]);
