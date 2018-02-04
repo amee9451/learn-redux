@@ -1,3 +1,10 @@
-# learn redux
+<a name="module_hello"></a>
 
-Learning Redux as part of Udemy course by @andrewjmead
+## hello ⇒ <code>Promise</code>
+
+Param | Type 
+--- | --- 
+opts | <code>Object</code>
+opts.root | <code>String</code>
+[opts.eventEmitter] | <code>EventEmitter</code>
+
